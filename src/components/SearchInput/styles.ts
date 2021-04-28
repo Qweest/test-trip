@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 
 export const Input = styled(UnstyledInput)`
   position: relative;
-  z-index: 2;
+  z-index: ${metrics.layers.depth2};
 `;
 
 export const Dropdown = styled(Card)<{ opened: boolean }>`
@@ -21,7 +21,7 @@ export const Dropdown = styled(Card)<{ opened: boolean }>`
   right: ${-metrics.spacing}px;
   left: ${-metrics.spacing}px;
   padding-top: ${metrics.spacing * 5}px;
-  z-index: 1;
+  z-index: ${metrics.layers.depth1};
   transition: all 0.2s ease;
 `;
 

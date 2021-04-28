@@ -8,11 +8,10 @@ interface Props extends InputProps {
   className?: string;
   data: { id: string; title: string; info?: string }[];
   onItemClick: (id: string) => void;
-  selectedItem?: { id: string; title: string };
 }
 
 const SearchInput: React.FC<Props> = (props) => {
-  const { className, data, selectedItem, onItemClick, ...inputProps } = props;
+  const { className, data, onItemClick, ...inputProps } = props;
   const wrapperRef = useRef(null);
   const [opened, setOpened] = useState(false);
 
@@ -47,11 +46,7 @@ const SearchInput: React.FC<Props> = (props) => {
 
   return (
     <Wrapper ref={wrapperRef} className={className}>
-      <Input
-        onFocus={handleFocus}
-        cards={selectedItem && [selectedItem]}
-        {...inputProps}
-      />
+      <Input onFocus={handleFocus} {...inputProps} />
       <Dropdown opened={opened && !!data.length}>
         <List>{renderData()}</List>
       </Dropdown>

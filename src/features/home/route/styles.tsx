@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import background from '../../../assets/images/background.jpeg';
-import UnstyledSearchInput from '../../../components/SearchInput';
+import UnstyledLocationInput from '../../../components/LocationInput';
 import { colors, metrics } from '../../../styles';
 
 export const Wrapper = styled.div`
@@ -32,6 +32,8 @@ export const SearchBar = styled.div`
   padding: ${metrics.spacing}px;
 `;
 
-export const SearchInput = styled(UnstyledSearchInput)`
+export const LocationInput = styled(UnstyledLocationInput)`
+  display: flex;
+  flex: 1;
   margin-right: ${metrics.spacing * 0.5}px;
 `;

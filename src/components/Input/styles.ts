@@ -46,18 +46,18 @@ export const InputElement = styled.input`
   }
 `;
 
-export const InputCard = styled.div`
+export const InputCard = styled.div<{ bgColor?: string }>`
   border-radius: 3px;
   padding: ${metrics.spacing * 0.25}px ${metrics.spacing * 0.5}px;
   margin-right: ${metrics.spacing * 0.5}px;
   font-size: ${metrics.fontSize.medium}px;
   font-weight: bold;
   color: ${colors.white};
-  background-color: ${colors.green1};
+  background-color: ${({ bgColor }) => bgColor || colors.green};
   cursor: pointer;
 
   :hover {
-    background-color: ${colors.green};
+    opacity: 0.9;
     text-decoration: line-through;
   }
 `;

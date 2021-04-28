@@ -6,7 +6,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label?: string;
   onChangeText?: (value: string) => void;
-  cards?: { id: string; title: string }[];
+  card?: { id: string; title: string; color?: string };
   onCardClick?: (id: string) => void;
 }
 
@@ -17,7 +17,7 @@ const Input: React.FC<Props> = (props) => {
     onChangeText,
     onChange,
     onFocus,
-    cards = [],
+    card,
     onCardClick,
     ...inputProps
   } = props;
@@ -58,18 +58,6 @@ const Input: React.FC<Props> = (props) => {
     }
   };
 
-  const renderCards = () => {
-    return cards.map((it) => {
-      const { id, title } = it;
-
-      return (
-        <InputCard onClick={handleCardClick(id)} key={id}>
-          {title}
-        </InputCard>
-      );
-    });
-  };
-
   return (
     <Wrapper
       className={className}
@@ -77,7 +65,11 @@ const Input: React.FC<Props> = (props) => {
       onClick={handleWrapperClick}
     >
       {label && <Label>{label}</Label>}
-      {!!cards.length && renderCards()}
+      {card && (
+        <InputCard bgColor={card.color} onClick={handleCardClick(card.id)}>
+          {card.title}
+        </InputCard>
+      )}
       <InputElement
         ref={inputRef}
         onChange={handleChange}

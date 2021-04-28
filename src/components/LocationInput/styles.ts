@@ -1,58 +1,45 @@
 import styled from 'styled-components';
 
-import Card from '../Card';
-import UnstyledInput from '../Input';
-import { metrics, colors } from '../../styles';
+import { colors, metrics } from '../../styles';
+import UnstyledSearchInput from '../SearchInput';
 
 export const Wrapper = styled.div`
   position: relative;
+  align-items: center;
 `;
 
-export const Input = styled(UnstyledInput)`
-  position: relative;
-  z-index: 2;
-`;
-
-export const Dropdown = styled(Card)<{ opened: boolean }>`
-  visibility: ${({ opened }) => (opened ? 'visible' : 'hidden')};
-  opacity: ${({ opened }) => (opened ? 1 : 0)};
+export const SwapButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  top: ${-metrics.spacing}px;
-  right: ${-metrics.spacing}px;
-  left: ${-metrics.spacing}px;
-  padding-top: ${metrics.spacing * 5}px;
-  z-index: 1;
-  transition: all 0.2s ease;
-`;
-
-export const List = styled.ul`
-  width: 100%;
+  width: 22px;
+  height: 22px;
+  left: -15px;
+  background-color: ${colors.grey2};
+  box-shadow: ${colors.blackA2} 0 0 3px 1px;
+  border-radius: 50%;
   padding: 0;
   margin: 0;
-  list-style-type: none;
-  color: ${colors.black1};
-`;
-
-export const SearchItem = styled.li`
-  display: flex;
-  flex-direction: column;
-  padding: ${metrics.spacing * 0.75}px;
+  border: none;
+  outline: none;
   cursor: pointer;
-  font-size: ${metrics.fontSize.medium}px;
-  font-weight: 500;
   transition: all 0.2s ease;
+  z-index: ${metrics.layers.depth3};
 
   :hover {
-    background-color: ${colors.grey3};
+    color: ${colors.white};
+    transform: scale(1.5);
+    background-color: ${colors.grass};
+    box-shadow: none;
   }
+
   :active {
-    background-color: ${colors.grey2};
+    transform: scale(1.4);
   }
 `;
 
-export const Info = styled.span`
-  font-weight: normal;
-  font-size: ${metrics.fontSize.small}px;
-  line-height: ${metrics.fontSize.regular}px;
-  color: ${colors.grey};
+export const SearchInput = styled(UnstyledSearchInput)`
+  display: flex;
+  flex: 1;
 `;

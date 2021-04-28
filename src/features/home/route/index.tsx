@@ -1,81 +1,45 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Location } from '../../search/api/entities';
-import { searchSelector } from '../../search/slice';
-import { getLocationsAction } from '../../search/thunks';
-import { Wrapper, SearchContainer, SearchBar, SearchInput } from './styles';
+import { searchSelector, actions } from '../../search/slice';
+import { Wrapper, SearchContainer, SearchBar, LocationInput } from './styles';
+import { colors } from '../../../styles';
 
 const Home: React.FC = () => {
-  const { locations } = useSelector(searchSelector);
+  const { from, to } = useSelector(searchSelector);
   const dispatch = useDispatch();
-  const [search, setSearch] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState<
-    Location | undefined
-  >();
-  const searchData = useMemo(
-    () =>
-      locations.map((it) => {
-        const { id, city, country, name } = it;
-        const title = `${city.name}, ${country?.name || city.country?.name}`;
 
-        return {
-          id,
-          title,
-          info: name,
-        };
-      }),
-    [locations],
-  );
-
-  const selectLocation = (id: string) => {
-    const location = locations.find((it) => it.id === id)!;
-
-    setSearch('');
-    setSelectedLocation(location);
+  const handleFromSelect = (location: Location | null) => {
+    dispatch(actions.setFromLocation(location));
   };
 
-  const removeLocation = () => {
-    setSelectedLocation(undefined);
+  const handleToSelect = (location: Location | null) => {
+    dispatch(actions.setToLocation(location));
   };
 
-  useEffect(() => {
-    dispatch(getLocationsAction({ term: search }));
-  }, [search]);
+  const handleSwapClick = () => {
+    handleToSelect(from);
+    handleFromSelect(to);
+  };
 
   return (
     <Wrapper>
       <SearchContainer>
         <SearchBar>
-          <SearchInput
-            onItemClick={selectLocation}
-            onCardClick={removeLocation}
-            onChangeText={setSearch}
-            data={searchData}
-            selectedItem={
-              selectedLocation && {
-                id: selectedLocation.id,
-                title: selectedLocation.city.name,
-              }
-            }
-            value={search}
+          <LocationInput
             label="From"
-            placeholder="Select your airport"
+            placeholder="Please choose your airport"
+            location={from}
+            onLocationSelect={handleFromSelect}
           />
-          <SearchInput
-            onItemClick={selectLocation}
-            onCardClick={removeLocation}
-            onChangeText={setSearch}
-            data={searchData}
-            selectedItem={
-              selectedLocation && {
-                id: selectedLocation.id,
-                title: selectedLocation.city.name,
-              }
-            }
-            value={search}
+          <LocationInput
             label="To"
             placeholder={'Try "Paris"'}
+            location={to}
+            onLocationSelect={handleToSelect}
+            onSwapClick={handleSwapClick}
+            cardColor={colors.orange}
           />
         </SearchBar>
       </SearchContainer>

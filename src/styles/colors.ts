@@ -39,4 +39,5 @@ export default {
   opal: '#9BC1BC',
   ocean: '#015871',
   seagull: '#80b4d3',
+  orange: 'rgb(249, 151, 30)',
 };

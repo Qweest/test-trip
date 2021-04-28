@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { RootState } from '../../store/entities';
 import { Location } from './api/entities';
 import { State } from './entities';
-import { RootState } from '../../store/entities';
 
 export const initialState: State = {
   locations: [],
@@ -20,6 +20,12 @@ const slice = createSlice({
     },
     getLocationsFailure(state, action: PayloadAction<string>) {
       state.error = action.payload;
+    },
+    setFromLocation(state, action: PayloadAction<Location | null>) {
+      state.from = action.payload;
+    },
+    setToLocation(state, action: PayloadAction<Location | null>) {
+      state.to = action.payload;
     },
   },
 });

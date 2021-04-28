@@ -1,24 +1,35 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { HiOutlineSwitchHorizontal } from 'react-icons/hi';
 
 import { Location } from '../../features/search/api/entities';
 import { searchSelector } from '../../features/search/slice';
 import { getLocationsAction } from '../../features/search/thunks';
-import SearchInput from '../SearchInput';
+import { Wrapper, SwapButton, SearchInput } from './styles';
 
 interface Props {
+  className?: string;
   label: string;
   placeholder: string;
+  location: Location | null;
+  onLocationSelect: (location: Location | null) => void;
+  onSwapClick?: () => void;
+  cardColor?: string;
 }
 
 const LocationInput: React.FC<Props> = (props) => {
-  const { label, placeholder } = props;
+  const {
+    className,
+    label,
+    placeholder,
+    location,
+    onLocationSelect,
+    onSwapClick,
+    cardColor,
+  } = props;
   const { locations } = useSelector(searchSelector);
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState<
-    Location | undefined
-  >();
   const searchData = useMemo(
     () =>
       locations.map((it) => {
@@ -38,11 +49,11 @@ const LocationInput: React.FC<Props> = (props) => {
     const location = locations.find((it) => it.id === id)!;
 
     setSearch('');
-    setSelectedLocation(location);
+    onLocationSelect(location);
   };
 
   const removeLocation = () => {
-    setSelectedLocation(undefined);
+    onLocationSelect(null);
   };
 
   useEffect(() => {
@@ -50,21 +61,31 @@ const LocationInput: React.FC<Props> = (props) => {
   }, [search]);
 
   return (
-    <SearchInput
-      data={searchData}
-      onItemClick={selectLocation}
-      onCardClick={removeLocation}
-      onChangeText={setSearch}
-      selectedItem={
-        selectedLocation && {
-          id: selectedLocation.id,
-          title: selectedLocation.city.name,
+    <Wrapper className={className}>
+      {location && onSwapClick && (
+        <SwapButton onClick={onSwapClick}>
+          <HiOutlineSwitchHorizontal />
+        </SwapButton>
+      )}
+      <SearchInput
+        data={searchData}
+        onItemClick={selectLocation}
+        onCardClick={removeLocation}
+        onChangeText={setSearch}
+        card={
+          location
+            ? {
+                id: location.id,
+                title: location.city.name,
+                color: cardColor,
+              }
+            : undefined
         }
-      }
-      value={search}
-      label={label}
-      placeholder={placeholder}
-    />
+        value={search}
+        label={label}
+        placeholder={placeholder}
+      />
+    </Wrapper>
   );
 };
 
