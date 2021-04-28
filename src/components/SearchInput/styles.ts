@@ -8,9 +8,10 @@ export const Wrapper = styled.div`
   position: relative;
 `;
 
-export const Input = styled(UnstyledInput)`
+export const Input = styled(UnstyledInput)<{ opened: boolean }>`
   position: relative;
-  z-index: ${metrics.layers.depth2};
+  z-index: ${({ opened }) =>
+    opened ? metrics.layers.depth5 : metrics.layers.depth2};
 `;
 
 export const Dropdown = styled(Card)<{ opened: boolean }>`
@@ -21,7 +22,8 @@ export const Dropdown = styled(Card)<{ opened: boolean }>`
   right: ${-metrics.spacing}px;
   left: ${-metrics.spacing}px;
   padding-top: ${metrics.spacing * 5}px;
-  z-index: ${metrics.layers.depth1};
+  z-index: ${({ opened }) =>
+    opened ? metrics.layers.depth4 : metrics.layers.depth1};
   transition: all 0.2s ease;
 `;
 

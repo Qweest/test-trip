@@ -46,7 +46,11 @@ const SearchInput: React.FC<Props> = (props) => {
 
   return (
     <Wrapper ref={wrapperRef} className={className}>
-      <Input onFocus={handleFocus} {...inputProps} />
+      <Input
+        opened={opened && !!data.length}
+        onFocus={handleFocus}
+        {...inputProps}
+      />
       <Dropdown opened={opened && !!data.length}>
         <List>{renderData()}</List>
       </Dropdown>
