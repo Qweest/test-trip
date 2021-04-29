@@ -1,9 +1,7 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 
 import { colors } from '../../../styles';
 import { Location } from '../../search/api/entities';
-import { searchSelector, actions } from '../../search/slice';
 import {
   Wrapper,
   SearchContainer,
@@ -12,16 +10,37 @@ import {
   DatePicker,
 } from './styles';
 
-const Home: React.FC = () => {
-  const { from, to } = useSelector(searchSelector);
-  const dispatch = useDispatch();
+interface RangeDate {
+  start: Date | null;
+  end: Date | null;
+}
 
-  const handleFromSelect = (location: Location | null) => {
-    dispatch(actions.setFromLocation(location));
+const Home: React.FC = () => {
+  const [from, setFrom] = useState<Location>();
+  const [to, setTo] = useState<Location>();
+  const [departure, setDeparture] = useState<RangeDate>({
+    start: null,
+    end: null,
+  });
+  const [returnDate, setReturnDate] = useState<RangeDate>({
+    start: null,
+    end: null,
+  });
+
+  const handleDepartureSelect = (range: RangeDate) => {
+    setDeparture(range);
   };
 
-  const handleToSelect = (location: Location | null) => {
-    dispatch(actions.setToLocation(location));
+  const handleReturnSelect = (range: RangeDate) => {
+    setReturnDate(range);
+  };
+
+  const handleFromSelect = (location?: Location) => {
+    setFrom(location);
+  };
+
+  const handleToSelect = (location?: Location) => {
+    setTo(location);
   };
 
   const handleSwapClick = () => {
@@ -47,7 +66,19 @@ const Home: React.FC = () => {
             onSwapClick={handleSwapClick}
             cardColor={colors.orange}
           />
-          <DatePicker />
+          <DatePicker
+            onDateSelect={handleDepartureSelect}
+            start={departure.start}
+            end={departure.end}
+            label="Departure"
+          />
+          <DatePicker
+            onDateSelect={handleReturnSelect}
+            start={returnDate.start}
+            end={returnDate.end}
+            label="Return"
+            activeFrom={departure.end || departure.start}
+          />
         </SearchBar>
       </SearchContainer>
     </Wrapper>

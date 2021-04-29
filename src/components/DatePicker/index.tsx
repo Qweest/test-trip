@@ -8,36 +8,46 @@ import { Wrapper, Input } from './styles';
 import './styles.css';
 import { getDateString } from '../../utils/helpers';
 
+type PossibleDate = Date | null;
+
 interface Props {
   className?: string;
+  label?: string;
+  start: PossibleDate;
+  end: PossibleDate;
+  onDateSelect: (dates: { start: PossibleDate; end: PossibleDate }) => void;
+  activeFrom?: PossibleDate;
 }
 
 const DatePicker: React.FC<Props> = (props) => {
-  const { className } = props;
+  const { className, label, start, end, onDateSelect, activeFrom } = props;
   const wrapperRef = useRef(null);
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
   const [opened, setOpened] = useState(false);
 
   const getDatesString = useCallback(() => {
-    if (!startDate) {
+    if (!start) {
       return 'Anytime';
     }
 
-    const startString = getDateString(startDate);
+    const startString = getDateString(start);
 
-    if (endDate) {
-      const endString = getDateString(endDate);
+    if (end) {
+      const endString = getDateString(end);
 
       return `${startString} - ${endString}`;
     }
 
     return startString;
-  }, [startDate, endDate]);
+  }, [start, end]);
+
+  const handlePickerChange = (dates: Date[] | PossibleDate) => {
+    const [start, end] = dates as Date[];
+
+    onDateSelect({ start, end });
+  };
 
   const handleClearDate = () => {
-    setStartDate(null);
-    setEndDate(null);
+    onDateSelect({ start: null, end: null });
   };
 
   const handleFocus = () => {
@@ -48,20 +58,13 @@ const DatePicker: React.FC<Props> = (props) => {
     setOpened(false);
   };
 
-  const handlePickerChange = (dates: Date[] | Date | null) => {
-    const [start, end] = dates as Date[];
-
-    setStartDate(start);
-    setEndDate(end);
-  };
-
   useOutsideClick(wrapperRef, handleOutsideClick, opened);
 
   return (
     <Wrapper ref={wrapperRef} className={className}>
       <Input
         opened={opened}
-        label={opened ? '' : 'Departure'}
+        label={opened ? '' : label}
         onFocus={handleFocus}
         value={getDatesString()}
         onClearClick={handleClearDate}
@@ -70,9 +73,9 @@ const DatePicker: React.FC<Props> = (props) => {
         <UnstyledDatePicker
           inline
           selectsRange
-          selected={startDate}
-          startDate={startDate}
-          endDate={endDate}
+          selected={start}
+          startDate={start}
+          endDate={end}
           onChange={handlePickerChange}
           minDate={new Date()}
           monthsShown={2}
@@ -81,7 +84,7 @@ const DatePicker: React.FC<Props> = (props) => {
           calendarClassName="calendar-wrapper"
           weekDayClassName={() => 'calendar-weekday'}
           disabledKeyboardNavigation
-          dayClassName={getDayClass(startDate, endDate)}
+          dayClassName={getDayClass(start, end, activeFrom)}
         />
       )}
     </Wrapper>

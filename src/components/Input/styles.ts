@@ -12,12 +12,13 @@ export const Wrapper = styled.div<{ focused: boolean }>`
   flex: 1;
   flex-direction: row;
   align-items: center;
+  height: 50px;
+  padding: 0 ${metrics.spacing}px;
+  box-sizing: border-box;
   font-size: ${metrics.fontSize.regular}px;
   background-color: ${colors.white};
   box-shadow: inset 0 0 0 1px ${colors.grey1};
   border-radius: 3px;
-  box-sizing: border-box;
-  padding: ${metrics.spacing * 0.5}px ${metrics.spacing}px;
   transition: all 0.2s ease;
   cursor: pointer;
 
@@ -30,24 +31,7 @@ export const Label = styled.span`
   user-select: none;
 `;
 
-export const InputElement = styled.input`
-  flex: 1;
-  outline: none;
-  border: none;
-  color: ${colors.black1};
-  font-size: ${metrics.fontSize.medium}px;
-  font-weight: bold;
-  padding: 0;
-  padding-top: 2px;
-  height: 32px;
-
-  ::placeholder {
-    color: ${colors.grey1};
-    font-weight: normal;
-  }
-`;
-
-export const InputCard = styled.div<{ bgColor?: string }>`
+export const InputCard = styled.span<{ bgColor?: string }>`
   border-radius: 3px;
   padding: ${metrics.spacing * 0.25}px ${metrics.spacing * 0.5}px;
   margin-right: ${metrics.spacing * 0.5}px;
@@ -60,6 +44,23 @@ export const InputCard = styled.div<{ bgColor?: string }>`
   :hover {
     opacity: 0.9;
     text-decoration: line-through;
+  }
+`;
+
+export const InputField = styled.input`
+  flex: 1;
+  width: 0;
+  outline: none;
+  border: none;
+  color: ${colors.black1};
+  font-size: ${metrics.fontSize.medium}px;
+  font-weight: bold;
+  padding: 0;
+  padding-top: 2px;
+
+  ::placeholder {
+    color: ${colors.grey1};
+    font-weight: normal;
   }
 `;
 

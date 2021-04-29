@@ -28,6 +28,10 @@
   border-radius: 0;
 }
 
+.calendar-day-disabled {
+  pointer-events: none;
+}
+
 .calendar-day-today {
   background-color: ghostwhite;
   color: #292929;

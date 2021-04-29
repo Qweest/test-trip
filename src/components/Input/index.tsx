@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes, useRef, useState } from 'react';
 
-import { Wrapper, Label, InputElement, InputCard, ClearButton } from './styles';
+import { Wrapper, Label, InputField, InputCard, ClearButton } from './styles';
 import { useOutsideClick } from '../../utils/hooks';
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -84,7 +84,7 @@ const Input: React.FC<Props> = (props) => {
           {card.title}
         </InputCard>
       )}
-      <InputElement
+      <InputField
         ref={inputRef}
         onChange={handleChange}
         onFocus={handleFocus}

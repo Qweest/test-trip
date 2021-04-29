@@ -13,4 +13,11 @@ export default {
     depth4: 40,
     depth5: 50,
   },
+  breakpoints: {
+    mobile: '320px',
+    tablet: '768px',
+    tabletL: '1024px',
+    desktop: '1440px',
+    desktopL: '1920px',
+  },
 };

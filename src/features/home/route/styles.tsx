@@ -31,16 +31,33 @@ export const SearchBar = styled.div`
   border-radius: 8px;
   box-shadow: ${colors.blackA2} 0 4px 15px 4px;
   padding: ${metrics.spacing}px;
+
+  @media (max-width: ${metrics.breakpoints.tabletL}) {
+    height: fit-content;
+    flex-direction: column;
+  }
+`;
+
+const inputMedia = `
+  @media (max-width: ${metrics.breakpoints.tabletL}) {
+    margin: 0;
+    margin-bottom: ${metrics.spacing * 0.5}px;
+    width: 100%;
+  }
 `;
 
 export const LocationInput = styled(UnstyledLocationInput)`
   display: flex;
   flex: 1;
   margin-right: ${metrics.spacing * 0.5}px;
+
+  ${inputMedia}
 `;
 
 export const DatePicker = styled(UnstyledDatePicker)`
   display: flex;
   flex: 1;
   margin-right: ${metrics.spacing * 0.5}px;
+
+  ${inputMedia}
 `;

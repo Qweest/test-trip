@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HiOutlineSwitchHorizontal } from 'react-icons/hi';
 
@@ -11,8 +11,8 @@ interface Props {
   className?: string;
   label: string;
   placeholder: string;
-  location: Location | null;
-  onLocationSelect: (location: Location | null) => void;
+  location?: Location;
+  onLocationSelect: (location?: Location) => void;
   onSwapClick?: () => void;
   cardColor?: string;
 }
@@ -30,30 +30,29 @@ const LocationInput: React.FC<Props> = (props) => {
   const { locations } = useSelector(searchSelector);
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
-  const searchData = useMemo(
-    () =>
-      locations.map((it) => {
-        const { id, city, country, name } = it;
-        const title = `${city.name}, ${country?.name || city.country?.name}`;
 
-        return {
-          id,
-          title,
-          info: name,
-        };
-      }),
-    [locations],
-  );
+  const getSearchData = useCallback(() => {
+    return locations.map((it) => {
+      const { id, city, country, name } = it;
+      const title = `${city.name}, ${country?.name || city.country?.name}`;
+
+      return {
+        id,
+        title,
+        info: name,
+      };
+    });
+  }, [locations]);
 
   const selectLocation = (id: string) => {
-    const location = locations.find((it) => it.id === id)!;
+    const location = locations.find((it) => it.id === id);
 
     setSearch('');
     onLocationSelect(location);
   };
 
   const removeLocation = () => {
-    onLocationSelect(null);
+    onLocationSelect();
   };
 
   useEffect(() => {
@@ -68,18 +67,16 @@ const LocationInput: React.FC<Props> = (props) => {
         </SwapButton>
       )}
       <SearchInput
-        data={searchData}
+        data={getSearchData()}
         onItemClick={selectLocation}
         onCardClick={removeLocation}
         onChangeText={setSearch}
         card={
-          location
-            ? {
-                id: location.id,
-                title: location.city.name,
-                color: cardColor,
-              }
-            : undefined
+          location && {
+            id: location.id,
+            title: location.city.name,
+            color: cardColor,
+          }
         }
         value={search}
         label={label}
