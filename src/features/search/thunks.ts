@@ -1,6 +1,6 @@
 import { AppThunk } from '../../store';
-import { LocationsRequest } from './api/entities';
-import { getLocations } from './api';
+import { FlightsRequest, LocationsRequest } from './api/entities';
+import { getFlights, getLocations } from './api';
 import { actions } from './slice';
 
 export const getLocationsAction = (
@@ -11,7 +11,20 @@ export const getLocationsAction = (
 
     dispatch(actions.getLocationsSuccess(data.locations));
   } catch (e) {
-    dispatch(actions.getLocationsFailure(e.message));
+    dispatch(actions.setError(e.message));
+    throw e;
+  }
+};
+
+export const getFlightsAction = (
+  flightsRequest: FlightsRequest,
+): AppThunk => async (dispatch) => {
+  try {
+    const { data } = await getFlights(flightsRequest);
+
+    dispatch(actions.getFlightsSuccess(data.data));
+  } catch (e) {
+    dispatch(actions.setError(e.message));
     throw e;
   }
 };

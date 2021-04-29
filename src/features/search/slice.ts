@@ -1,11 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '../../store/entities';
-import { Location } from './api/entities';
-import { State } from './entities';
+import { Flight, Location } from './api/entities';
+import { RangeDate, State } from './entities';
 
 export const initialState: State = {
   locations: [],
+  from: undefined,
+  to: undefined,
+  departureDates: { start: null, end: null },
+  returnDates: { start: null, end: null },
+  flights: [],
   error: '',
 };
 
@@ -16,8 +21,23 @@ const slice = createSlice({
     getLocationsSuccess(state, action: PayloadAction<Location[]>) {
       state.locations = action.payload;
     },
-    getLocationsFailure(state, action: PayloadAction<string>) {
+    setError(state, action: PayloadAction<string>) {
       state.error = action.payload;
+    },
+    setFromLocation(state, action: PayloadAction<Location | undefined>) {
+      state.from = action.payload;
+    },
+    setToLocation(state, action: PayloadAction<Location | undefined>) {
+      state.to = action.payload;
+    },
+    setDepartureDates(state, action: PayloadAction<RangeDate>) {
+      state.departureDates = action.payload;
+    },
+    setReturnDates(state, action: PayloadAction<RangeDate>) {
+      state.returnDates = action.payload;
+    },
+    getFlightsSuccess(state, action: PayloadAction<Flight[]>) {
+      state.flights = action.payload;
     },
   },
 });

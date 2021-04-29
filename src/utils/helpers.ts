@@ -15,3 +15,13 @@ export const getDateString = (date: Date): string => {
     day: 'numeric',
   });
 };
+
+export const formatDate = (date: Date | null): string => {
+  if (!date) {
+    const nowDate = new Date();
+
+    return nowDate.toLocaleDateString('fr');
+  }
+
+  return date.toLocaleDateString('fr');
+};

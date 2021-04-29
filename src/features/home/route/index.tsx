@@ -1,86 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { colors } from '../../../styles';
-import { Location } from '../../search/api/entities';
-import {
-  Wrapper,
-  SearchContainer,
-  SearchBar,
-  LocationInput,
-  DatePicker,
-} from './styles';
-
-interface RangeDate {
-  start: Date | null;
-  end: Date | null;
-}
+import { ROUTE_PATHS } from '../../../navigation/constants';
+import SearchPanel from '../../../components/SearchPanel';
+import { Wrapper } from './styles';
 
 const Home: React.FC = () => {
-  const [from, setFrom] = useState<Location>();
-  const [to, setTo] = useState<Location>();
-  const [departure, setDeparture] = useState<RangeDate>({
-    start: null,
-    end: null,
-  });
-  const [returnDate, setReturnDate] = useState<RangeDate>({
-    start: null,
-    end: null,
-  });
+  const history = useHistory();
 
-  const handleDepartureSelect = (range: RangeDate) => {
-    setDeparture(range);
-  };
-
-  const handleReturnSelect = (range: RangeDate) => {
-    setReturnDate(range);
-  };
-
-  const handleFromSelect = (location?: Location) => {
-    setFrom(location);
-  };
-
-  const handleToSelect = (location?: Location) => {
-    setTo(location);
-  };
-
-  const handleSwapClick = () => {
-    handleToSelect(from);
-    handleFromSelect(to);
+  const handleSubmit = () => {
+    history.push(ROUTE_PATHS.RESULTS);
   };
 
   return (
     <Wrapper>
-      <SearchContainer>
-        <SearchBar>
-          <LocationInput
-            label="From"
-            placeholder="Please choose your airport"
-            location={from}
-            onLocationSelect={handleFromSelect}
-          />
-          <LocationInput
-            label="To"
-            placeholder={'Try "Paris"'}
-            location={to}
-            onLocationSelect={handleToSelect}
-            onSwapClick={handleSwapClick}
-            cardColor={colors.orange}
-          />
-          <DatePicker
-            onDateSelect={handleDepartureSelect}
-            start={departure.start}
-            end={departure.end}
-            label="Departure"
-          />
-          <DatePicker
-            onDateSelect={handleReturnSelect}
-            start={returnDate.start}
-            end={returnDate.end}
-            label="Return"
-            activeFrom={departure.end || departure.start}
-          />
-        </SearchBar>
-      </SearchContainer>
+      <SearchPanel onSubmitClick={handleSubmit} />
     </Wrapper>
   );
 };

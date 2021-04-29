@@ -28,6 +28,8 @@ export default {
   whiteA5: 'rgba(255,255,255,0.05)',
   green: '#5aac44',
   green1: '#61BD4E',
+  greenA: '#61BD4E55',
+  greenA1: '#61BD4E22',
 
   clay: '#c0c0c0',
   blueberry: '#6c7fcb',

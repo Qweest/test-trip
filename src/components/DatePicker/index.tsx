@@ -2,13 +2,12 @@ import React, { useCallback, useRef, useState } from 'react';
 import UnstyledDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import { PossibleDate } from '../../features/search/entities';
+import { getDateString } from '../../utils/helpers';
 import { useOutsideClick } from '../../utils/hooks';
 import { getDayClass } from './helpers';
 import { Wrapper, Input } from './styles';
 import './styles.css';
-import { getDateString } from '../../utils/helpers';
-
-type PossibleDate = Date | null;
 
 interface Props {
   className?: string;

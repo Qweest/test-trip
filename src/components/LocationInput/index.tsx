@@ -30,6 +30,9 @@ const LocationInput: React.FC<Props> = (props) => {
   const { locations } = useSelector(searchSelector);
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
+  const [searchTimer, setSearchTimer] = useState<
+    ReturnType<typeof setTimeout>
+  >();
 
   const getSearchData = useCallback(() => {
     return locations.map((it) => {
@@ -55,8 +58,18 @@ const LocationInput: React.FC<Props> = (props) => {
     onLocationSelect();
   };
 
-  useEffect(() => {
+  const searchLocations = () => {
     dispatch(getLocationsAction({ term: search }));
+  };
+
+  useEffect(() => {
+    if (searchTimer) {
+      clearTimeout(searchTimer);
+    }
+
+    const timer = setTimeout(searchLocations, 500);
+
+    setSearchTimer(timer);
   }, [search]);
 
   return (

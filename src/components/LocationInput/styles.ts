@@ -33,9 +33,21 @@ export const SwapButton = styled.button`
     background-color: ${colors.grass};
     box-shadow: none;
   }
-
   :active {
     transform: scale(1.4);
+  }
+
+  @media (max-width: ${metrics.breakpoints.tabletL}) {
+    top: ${-metrics.spacing}px;
+    left: ${metrics.spacing}px;
+    transform: rotate(90deg);
+
+    :hover {
+      transform: rotate(90deg) scale(1.5);
+    }
+    :active {
+      transform: rotate(90deg) scale(1.4);
+    }
   }
 `;
 

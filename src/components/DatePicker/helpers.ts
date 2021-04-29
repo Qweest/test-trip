@@ -1,9 +1,10 @@
+import { PossibleDate } from '../../features/search/entities';
 import { isToday, sameDate } from '../../utils/helpers';
 
 export const getDayClass = (
-  start: Date | null,
-  end: Date | null,
-  activeFrom?: Date | null,
+  start: PossibleDate,
+  end: PossibleDate,
+  activeFrom?: PossibleDate,
 ) => (date: Date): string => {
   const classNames = ['calendar-day'];
 
