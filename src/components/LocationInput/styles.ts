@@ -24,7 +24,7 @@ export const SwapButton = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.1s ease;
   z-index: ${metrics.layers.depth3};
 
   :hover {

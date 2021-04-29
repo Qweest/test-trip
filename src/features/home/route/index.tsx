@@ -1,10 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { colors } from '../../../styles';
 import { Location } from '../../search/api/entities';
 import { searchSelector, actions } from '../../search/slice';
-import { Wrapper, SearchContainer, SearchBar, LocationInput } from './styles';
-import { colors } from '../../../styles';
+import {
+  Wrapper,
+  SearchContainer,
+  SearchBar,
+  LocationInput,
+  DatePicker,
+} from './styles';
 
 const Home: React.FC = () => {
   const { from, to } = useSelector(searchSelector);
@@ -41,6 +47,7 @@ const Home: React.FC = () => {
             onSwapClick={handleSwapClick}
             cardColor={colors.orange}
           />
+          <DatePicker />
         </SearchBar>
       </SearchContainer>
     </Wrapper>

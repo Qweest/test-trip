@@ -1,6 +1,7 @@
 import React, { InputHTMLAttributes, useRef, useState } from 'react';
 
-import { Wrapper, Label, InputElement, InputCard } from './styles';
+import { Wrapper, Label, InputElement, InputCard, ClearButton } from './styles';
+import { useOutsideClick } from '../../utils/hooks';
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -8,6 +9,9 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   onChangeText?: (value: string) => void;
   card?: { id: string; title: string; color?: string };
   onCardClick?: (id: string) => void;
+  onClearClick?: () => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 const Input: React.FC<Props> = (props) => {
@@ -17,10 +21,13 @@ const Input: React.FC<Props> = (props) => {
     onChangeText,
     onChange,
     onFocus,
+    onBlur,
     card,
     onCardClick,
+    onClearClick,
     ...inputProps
   } = props;
+  const wrapperRef = useRef(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [focused, setFocused] = useState(false);
 
@@ -36,16 +43,20 @@ const Input: React.FC<Props> = (props) => {
     }
   };
 
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = () => {
     setFocused(true);
 
     if (onFocus) {
-      onFocus(e);
+      onFocus();
     }
   };
 
-  const handleBlur = () => {
+  const handleOutsideClick = () => {
     setFocused(false);
+
+    if (onBlur) {
+      onBlur();
+    }
   };
 
   const handleWrapperClick = () => {
@@ -58,8 +69,11 @@ const Input: React.FC<Props> = (props) => {
     }
   };
 
+  useOutsideClick(wrapperRef, handleOutsideClick, focused);
+
   return (
     <Wrapper
+      ref={wrapperRef}
       className={className}
       focused={focused}
       onClick={handleWrapperClick}
@@ -74,9 +88,9 @@ const Input: React.FC<Props> = (props) => {
         ref={inputRef}
         onChange={handleChange}
         onFocus={handleFocus}
-        onBlur={handleBlur}
         {...inputProps}
       />
+      {onClearClick && focused && <ClearButton onClick={onClearClick} />}
     </Wrapper>
   );
 };

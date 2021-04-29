@@ -33,12 +33,14 @@ export const List = styled.ul`
   margin: 0;
   list-style-type: none;
   color: ${colors.black1};
+  max-height: 300px;
+  overflow-y: scroll;
 `;
 
 export const SearchItem = styled.li`
   display: flex;
   flex-direction: column;
-  padding: ${metrics.spacing * 0.75}px;
+  padding: ${metrics.spacing * 0.5}px ${metrics.spacing}px;
   cursor: pointer;
   font-size: ${metrics.fontSize.medium}px;
   font-weight: 500;

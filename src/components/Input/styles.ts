@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { HiOutlineXCircle } from 'react-icons/all';
 
 import { metrics, colors } from '../../styles';
 
@@ -59,5 +60,19 @@ export const InputCard = styled.div<{ bgColor?: string }>`
   :hover {
     opacity: 0.9;
     text-decoration: line-through;
+  }
+`;
+
+export const ClearButton = styled(HiOutlineXCircle)`
+  width: 20px;
+  height: 20px;
+  transition: all 0.2s ease;
+  color: ${colors.danger};
+
+  :hover {
+    transform: scale(1.2);
+  }
+  :active {
+    transform: scale(1.1);
   }
 `;
