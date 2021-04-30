@@ -13,6 +13,9 @@ export interface State {
   to: Location | undefined;
   departureDates: RangeDate;
   returnDates: RangeDate;
-  flights: Flight[];
+  flights: {
+    pending: boolean;
+    data: Flight[];
+  };
   error: string;
 }

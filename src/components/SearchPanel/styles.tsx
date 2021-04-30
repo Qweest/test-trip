@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { metrics } from '../../styles';
 import UnstyledLocationInput from '../LocationInput';
 import UnstyledDatePicker from '../DatePicker';
+import UnstyledButton from '../Button';
 import Card from '../Card';
 
 export const Wrapper = styled(Card)`
@@ -17,7 +18,7 @@ export const Wrapper = styled(Card)`
   @media (max-width: ${metrics.breakpoints.tabletL}) {
     min-height: fit-content;
     flex-direction: column;
-    padding: ${metrics.spacing * 2}px;
+    padding: ${metrics.spacing}px;
   }
 `;
 
@@ -39,4 +40,10 @@ export const LocationInput = styled(UnstyledLocationInput)`
 
 export const DatePicker = styled(UnstyledDatePicker)`
   ${inputStyle}
+`;
+
+export const Button = styled(UnstyledButton)`
+  @media (max-width: ${metrics.breakpoints.tabletL}) {
+    width: 100%;
+  }
 `;

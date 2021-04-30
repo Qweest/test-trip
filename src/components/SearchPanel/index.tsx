@@ -7,8 +7,7 @@ import { RangeDate } from '../../features/search/entities';
 import { searchSelector, actions } from '../../features/search/slice';
 import { formatDate } from '../../utils/helpers';
 import { colors } from '../../styles';
-import Button from '../Button';
-import { Wrapper, LocationInput, DatePicker } from './styles';
+import { Wrapper, LocationInput, DatePicker, Button } from './styles';
 
 interface Props {
   className?: string;
@@ -86,12 +85,14 @@ const SearchPanel: React.FC<Props> = (props) => {
         start={departureDates.start}
         end={departureDates.end}
         label="Departure"
+        placeholder="Select departure date"
       />
       <DatePicker
         onDateSelect={handleReturnSelect}
         start={returnDates.start}
         end={returnDates.end}
         label="Return"
+        placeholder="Select return date"
         activeFrom={departureDates.end || departureDates.start}
       />
       <Button onClick={handleSubmit} disabled={!from}>

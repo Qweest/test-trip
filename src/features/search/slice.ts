@@ -10,7 +10,10 @@ export const initialState: State = {
   to: undefined,
   departureDates: { start: null, end: null },
   returnDates: { start: null, end: null },
-  flights: [],
+  flights: {
+    data: [],
+    pending: false,
+  },
   error: '',
 };
 
@@ -36,8 +39,16 @@ const slice = createSlice({
     setReturnDates(state, action: PayloadAction<RangeDate>) {
       state.returnDates = action.payload;
     },
+    getFlightsPending(state) {
+      state.flights.pending = true;
+    },
     getFlightsSuccess(state, action: PayloadAction<Flight[]>) {
-      state.flights = action.payload;
+      state.flights.data = action.payload;
+      state.flights.pending = false;
+    },
+    getFlightsError(state, action: PayloadAction<string>) {
+      state.flights.pending = false;
+      state.error = action.payload;
     },
   },
 });

@@ -16,16 +16,25 @@ interface Props {
   end: PossibleDate;
   onDateSelect: (dates: { start: PossibleDate; end: PossibleDate }) => void;
   activeFrom?: PossibleDate;
+  placeholder?: string;
 }
 
 const DatePicker: React.FC<Props> = (props) => {
-  const { className, label, start, end, onDateSelect, activeFrom } = props;
+  const {
+    className,
+    label,
+    start,
+    end,
+    onDateSelect,
+    activeFrom,
+    placeholder,
+  } = props;
   const wrapperRef = useRef(null);
   const [opened, setOpened] = useState(false);
 
   const getDatesString = useCallback(() => {
     if (!start) {
-      return 'Anytime';
+      return '';
     }
 
     const startString = getDateString(start);
@@ -67,6 +76,7 @@ const DatePicker: React.FC<Props> = (props) => {
         onFocus={handleFocus}
         value={getDatesString()}
         onClearClick={handleClearDate}
+        placeholder={placeholder}
       />
       {opened && (
         <UnstyledDatePicker

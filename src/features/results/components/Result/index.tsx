@@ -69,27 +69,29 @@ const Result: React.FC<Props> = (props) => {
         </InfoWrapper>
       </RouteWrapper>
       <Separator />
-      <RouteWrapper>
-        <InfoWrapper>
-          <Row marginMultiplier={0.5}>
-            <City>{cityTo}</City>
-            <Code>{flyTo}</Code>
-          </Row>
-          <Date>{getDateStringFromSeconds(returnTimes.dTimeUTC)}</Date>
-        </InfoWrapper>
-        <DurationWrapper>
-          <Duration>
-            <span>{return_duration}</span>
-          </Duration>
-        </DurationWrapper>
-        <InfoWrapper alignEnd>
-          <Row marginMultiplier={0.5}>
-            <City>{cityFrom}</City>
-            <Code>{flyFrom}</Code>
-          </Row>
-          <Date>{getDateStringFromSeconds(returnTimes.aTimeUTC)}</Date>
-        </InfoWrapper>
-      </RouteWrapper>
+      {!!returnTimes.dTimeUTC && (
+        <RouteWrapper>
+          <InfoWrapper>
+            <Row marginMultiplier={0.5}>
+              <City>{cityTo}</City>
+              <Code>{flyTo}</Code>
+            </Row>
+            <Date>{getDateStringFromSeconds(returnTimes.dTimeUTC)}</Date>
+          </InfoWrapper>
+          <DurationWrapper>
+            <Duration>
+              <span>{return_duration}</span>
+            </Duration>
+          </DurationWrapper>
+          <InfoWrapper alignEnd>
+            <Row marginMultiplier={0.5}>
+              <City>{cityFrom}</City>
+              <Code>{flyFrom}</Code>
+            </Row>
+            <Date>{getDateStringFromSeconds(returnTimes.aTimeUTC)}</Date>
+          </InfoWrapper>
+        </RouteWrapper>
+      )}
       <Price>{price} €</Price>
     </Wrapper>
   );

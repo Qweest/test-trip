@@ -20,11 +20,11 @@ export const getFlightsAction = (
   flightsRequest: FlightsRequest,
 ): AppThunk => async (dispatch) => {
   try {
+    dispatch(actions.getFlightsPending());
     const { data } = await getFlights(flightsRequest);
-
     dispatch(actions.getFlightsSuccess(data.data));
   } catch (e) {
-    dispatch(actions.setError(e.message));
+    dispatch(actions.getFlightsError(e.message));
     throw e;
   }
 };
