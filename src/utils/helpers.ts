@@ -8,7 +8,10 @@ export const isToday = (date: Date): boolean => {
   return sameDate(date, today);
 };
 
-export const getDateString = (date: Date, options?: any): string => {
+export const getDateString = (
+  date: Date,
+  options?: Intl.DateTimeFormatOptions,
+): string => {
   return date.toLocaleString('en-Us', {
     weekday: 'short',
     month: 'short',

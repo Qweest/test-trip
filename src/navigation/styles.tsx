@@ -9,5 +9,5 @@ export const MainContainer = styled.div`
   width: 100%;
   background-image: url(${background});
   background-size: cover;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;

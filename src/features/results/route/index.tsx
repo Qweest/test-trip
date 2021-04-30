@@ -25,7 +25,7 @@ const Results: React.FC = () => {
       return (
         <EmptyInfo>
           <HiOutlineGlobe size={64} />
-          <span>Wow, such empty</span>
+          <span>Wow, such empty :(</span>
         </EmptyInfo>
       );
     }
