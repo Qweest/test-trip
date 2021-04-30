@@ -7,6 +7,10 @@
  (I used `react-datepicker` and styled it a bit). Also, some
  icons were taken from `react-icons`.
 
+## View on Heroku
+
+https://test-trip-project.herokuapp.com/
+
 ## Install dependencies
 
 Run `yarn` command
