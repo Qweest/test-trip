@@ -6,6 +6,7 @@ import { RangeDate, State } from './entities';
 
 export const initialState: State = {
   locations: [],
+  currentLocation: undefined,
   from: undefined,
   to: undefined,
   departureDates: { start: null, end: null },
@@ -26,6 +27,12 @@ const slice = createSlice({
     },
     setError(state, action: PayloadAction<string>) {
       state.error = action.payload;
+    },
+    setCurrentLocation(
+      state,
+      action: PayloadAction<{ lon: number; lat: number }>,
+    ) {
+      state.currentLocation = action.payload;
     },
     setFromLocation(state, action: PayloadAction<Location | undefined>) {
       state.from = action.payload;

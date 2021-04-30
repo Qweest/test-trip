@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getFlightsAction } from '../../features/search/thunks';
+import {
+  getFlightsAction,
+  getRadiusLocationsAction,
+} from '../../features/search/thunks';
 import { Location } from '../../features/search/api/entities';
 import { RangeDate } from '../../features/search/entities';
 import { searchSelector, actions } from '../../features/search/slice';
@@ -17,7 +20,13 @@ interface Props {
 const SearchPanel: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const { className, onSubmitClick } = props;
-  const { from, to, departureDates, returnDates } = useSelector(searchSelector);
+  const {
+    from,
+    to,
+    departureDates,
+    returnDates,
+    currentLocation,
+  } = useSelector(searchSelector);
 
   const handleFromSelect = (location?: Location) => {
     dispatch(actions.setFromLocation(location));
@@ -63,6 +72,12 @@ const SearchPanel: React.FC<Props> = (props) => {
 
     onSubmitClick();
   };
+
+  useEffect(() => {
+    if (currentLocation) {
+      dispatch(getRadiusLocationsAction(currentLocation));
+    }
+  }, [currentLocation]);
 
   return (
     <Wrapper className={className}>

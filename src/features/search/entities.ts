@@ -7,8 +7,14 @@ export interface RangeDate {
   end: PossibleDate;
 }
 
+export interface Coordinates {
+  lat: number;
+  lon: number;
+}
+
 export interface State {
   locations: Location[];
+  currentLocation?: Coordinates;
   from: Location | undefined;
   to: Location | undefined;
   departureDates: RangeDate;
