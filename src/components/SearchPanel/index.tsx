@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -27,6 +27,9 @@ const SearchPanel: React.FC<Props> = (props) => {
     returnDates,
     currentLocation,
   } = useSelector(searchSelector);
+  const isValid = useMemo(() => {
+    return !!from && !!departureDates.start;
+  }, [from, to, departureDates]);
 
   const handleFromSelect = (location?: Location) => {
     dispatch(actions.setFromLocation(location));
@@ -110,7 +113,7 @@ const SearchPanel: React.FC<Props> = (props) => {
         placeholder="Select return date"
         activeFrom={departureDates.end || departureDates.start}
       />
-      <Button onClick={handleSubmit} disabled={!from}>
+      <Button onClick={handleSubmit} disabled={!isValid}>
         Explore
       </Button>
     </Wrapper>
