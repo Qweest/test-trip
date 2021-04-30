@@ -33,22 +33,39 @@ export interface FlightsRequest {
   return_to?: string;
 }
 
-export interface Flight {
-  id: string;
+export interface Route {
+  aTimeUTC: number;
+  dTimeUTC: number;
+  flyFrom: string;
+  flyTo: string;
   cityFrom: string;
   cityTo: string;
+}
+
+export interface Flight {
+  id: string;
+  flyFrom: string;
+  flyTo: string;
+  cityFrom: string;
+  cityTo: string;
+  cityCodeFrom: string;
+  cityCodeTo: string;
   countryFrom: {
+    code: string;
     name: string;
   };
   countryTo: {
+    code: string;
     name: string;
   };
-  price: string;
+  price: number;
   fly_duration: string;
-  dTime: string;
-  dTimeUTC: string;
-  aTime: string;
-  aTimeUTC: string;
+  return_duration: string;
+  dTime: number;
+  dTimeUTC: number;
+  aTime: number;
+  aTimeUTC: number;
+  route: Route[];
 }
 
 export interface FlightsResponse {

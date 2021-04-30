@@ -8,11 +8,12 @@ export const isToday = (date: Date): boolean => {
   return sameDate(date, today);
 };
 
-export const getDateString = (date: Date): string => {
+export const getDateString = (date: Date, options?: any): string => {
   return date.toLocaleString('en-Us', {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
+    ...options,
   });
 };
 
@@ -24,4 +25,12 @@ export const formatDate = (date: Date | null): string => {
   }
 
   return date.toLocaleDateString('fr');
+};
+
+export const getDateStringFromSeconds = (seconds: number): string => {
+  const date = new Date(0);
+
+  date.setSeconds(seconds);
+
+  return getDateString(date, { hour: 'numeric', minute: 'numeric' });
 };

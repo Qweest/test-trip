@@ -1,17 +1,23 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import SearchPanel from '../../../components/SearchPanel';
 import { searchSelector } from '../../search/slice';
-import { Wrapper, ResultsWrapper } from './styles';
+import Result from '../components/Result';
+import { Wrapper, SearchPanel, ResultsWrapper } from './styles';
 
 const Results: React.FC = () => {
   const { flights } = useSelector(searchSelector);
 
+  const renderResults = () => {
+    return flights.map((it) => {
+      return <Result key={it.id} data={it} />;
+    });
+  };
+
   return (
     <Wrapper>
       <SearchPanel onSubmitClick={() => {}} />
-      <ResultsWrapper></ResultsWrapper>
+      <ResultsWrapper>{renderResults()}</ResultsWrapper>
     </Wrapper>
   );
 };

@@ -12,11 +12,10 @@ export const Wrapper = styled(Card)`
   border-radius: 8px;
   margin: ${metrics.spacing * 2}px;
   padding: 0 ${metrics.spacing * 2}px;
-  height: 150px;
-  width: 100%;
+  min-height: 150px;
 
   @media (max-width: ${metrics.breakpoints.tabletL}) {
-    height: fit-content;
+    min-height: fit-content;
     flex-direction: column;
     padding: ${metrics.spacing * 2}px;
   }

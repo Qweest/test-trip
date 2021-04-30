@@ -11,12 +11,13 @@ import Button from '../Button';
 import { Wrapper, LocationInput, DatePicker } from './styles';
 
 interface Props {
+  className?: string;
   onSubmitClick: () => void;
 }
 
 const SearchPanel: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
-  const { onSubmitClick } = props;
+  const { className, onSubmitClick } = props;
   const { from, to, departureDates, returnDates } = useSelector(searchSelector);
 
   const handleFromSelect = (location?: Location) => {
@@ -65,7 +66,7 @@ const SearchPanel: React.FC<Props> = (props) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <LocationInput
         label="From"
         placeholder="Please choose your airport"

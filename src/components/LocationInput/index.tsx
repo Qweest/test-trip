@@ -67,7 +67,7 @@ const LocationInput: React.FC<Props> = (props) => {
       clearTimeout(searchTimer);
     }
 
-    const timer = setTimeout(searchLocations, 500);
+    const timer = setTimeout(searchLocations, 250);
 
     setSearchTimer(timer);
   }, [search]);
