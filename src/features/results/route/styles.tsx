@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  overflow: auto;
+  height: fit-content;
 `;
 
 export const SearchPanel = styled(UnstyledSearchPanel)`
