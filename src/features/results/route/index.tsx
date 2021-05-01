@@ -50,7 +50,7 @@ const Results: React.FC = () => {
       <SearchPanel onSubmitClick={() => {}} />
       <ResultsWrapper>
         {renderResults()}
-        {renderDataCount < data.length && (
+        {renderDataCount < data.length && !pending && (
           <ShowMoreButton onClick={handleShowMoreClick}>
             Show more
           </ShowMoreButton>
