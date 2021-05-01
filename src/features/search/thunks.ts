@@ -17,14 +17,17 @@ export const getLocationsAction = (
   }
 };
 
-export const getRadiusLocationsAction = (
+export const setLocationByRadiusAction = (
   coords: Coordinates,
-): AppThunk => async (dispatch) => {
+): AppThunk => async (dispatch, getState) => {
   try {
     const { data } = await getRadiusLocations(coords);
     const { locations } = data;
+    const {
+      search: { from },
+    } = getState();
 
-    if (locations.length) {
+    if (locations.length && !from) {
       dispatch(actions.setFromLocation(locations[0]));
     }
   } catch (e) {

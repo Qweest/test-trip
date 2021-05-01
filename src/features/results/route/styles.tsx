@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import UnstyledSearchPanel from '../../../components/SearchPanel';
 import UnstyledLoader from '../../../components/Loader';
+import Button from '../../../components/Button';
 import Card from '../../../components/Card';
 import { colors, metrics } from '../../../styles';
 
@@ -62,4 +63,9 @@ export const EmptyInfo = styled.h1`
 
 export const Loader = styled(UnstyledLoader)`
   align-self: center;
+`;
+
+export const ShowMoreButton = styled(Button)`
+  width: 100%;
+  box-shadow: none;
 `;

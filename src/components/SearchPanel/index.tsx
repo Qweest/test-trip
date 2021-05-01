@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
   getFlightsAction,
-  getRadiusLocationsAction,
+  setLocationByRadiusAction,
 } from '../../features/search/thunks';
 import { Location } from '../../features/search/api/entities';
 import { RangeDate } from '../../features/search/entities';
@@ -78,7 +78,7 @@ const SearchPanel: React.FC<Props> = (props) => {
 
   useEffect(() => {
     if (currentLocation) {
-      dispatch(getRadiusLocationsAction(currentLocation));
+      dispatch(setLocationByRadiusAction(currentLocation));
     }
   }, [currentLocation]);
 
